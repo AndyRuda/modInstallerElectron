@@ -34,25 +34,23 @@ const onClickInstallEventHandler = (clear: boolean) => async (event: Event) => {
     const modsURL = 'https://codeload.github.com/Anucart/Tierra-del-Perreo-24-7-brrr/zip/refs/heads/main';
     const filePath = __dirname + '/../temp';
     //Get all mods
-    if (clear) fsExtra.emptyDirSync(`/Users/${user}/AppData/Roaming/.minecraft/mods`);
     fs.readdir(`/Users/${user}/AppData/Roaming/`, (err: any, files: any) => {
         isGameInstalled = files.find((file: string) => file === '.minecraft')
         if (isGameInstalled) {
             download(modsURL, filePath, { extract: true })
                 .then(() => {
-                    //Check if mods installed or not
-                    fs.readdir(`/Users/${user}/AppData/Roaming/.minecraft`, (err: any, files: any) => {
-                        //Copy files and paste in .minecraft/mods
-                        fsExtra.copy(
-                            __dirname + '/../temp/Tierra-del-Perreo-24-7-brrr-main/mods',
-                            `/Users/${user}/AppData/Roaming/.minecraft/mods`,
-                            (err: any) => {
-                                fsExtra.emptyDirSync(__dirname + '/../temp')
-                                if (err) throw err
-                            }
-                        )
-                        M.toast({ html: 'Mods instalados' })
-                    })
+                    //CLear if is clear install
+                    if (clear) fsExtra.emptyDirSync(`/Users/${user}/AppData/Roaming/.minecraft/mods`);
+                    //Copy files and paste in .minecraft/mods
+                    fsExtra.copy(
+                        __dirname + '/../temp/Tierra-del-Perreo-24-7-brrr-main/mods',
+                        `/Users/${user}/AppData/Roaming/.minecraft/mods`,
+                        (err: any) => {
+                            fsExtra.emptyDirSync(__dirname + '/../temp')
+                            if (err) throw err
+                        }
+                    )
+                    M.toast({ html: 'Mods instalados' })
                 }).catch((err: any) => {
                     M.toast({ html: 'No fue lo que dios quiere' })
                     M.toast({ html: "no se pudo instalar los mods re-intentar o instalar forzado" })

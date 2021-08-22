@@ -10,7 +10,7 @@ let mainWindow;
 electron_1.app.on('ready', () => {
     mainWindow = new electron_1.BrowserWindow({
         title: "Eshuu! Mods Installer",
-        icon: "./public/icon.jpg",
+        icon: "./public/icon.ico",
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,

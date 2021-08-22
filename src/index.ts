@@ -6,7 +6,7 @@ let mainWindow
 app.on('ready', ()=>{
     mainWindow = new BrowserWindow({
         title: "Eshuu! Mods Installer",
-        icon: "./public/icon.jpg",
+        icon: "./public/icon.ico",
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,

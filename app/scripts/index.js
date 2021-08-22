@@ -29,21 +29,19 @@ const onClickInstallEventHandler = (clear) => async (event) => {
     let isGameInstalled = false;
     const modsURL = 'https://codeload.github.com/Anucart/Tierra-del-Perreo-24-7-brrr/zip/refs/heads/main';
     const filePath = __dirname + '/../temp';
-    if (clear)
-        fsExtra.emptyDirSync(`/Users/${user}/AppData/Roaming/.minecraft/mods`);
     fs.readdir(`/Users/${user}/AppData/Roaming/`, (err, files) => {
         isGameInstalled = files.find((file) => file === '.minecraft');
         if (isGameInstalled) {
             download(modsURL, filePath, { extract: true })
                 .then(() => {
-                fs.readdir(`/Users/${user}/AppData/Roaming/.minecraft`, (err, files) => {
-                    fsExtra.copy(__dirname + '/../temp/Tierra-del-Perreo-24-7-brrr-main/mods', `/Users/${user}/AppData/Roaming/.minecraft/mods`, (err) => {
-                        fsExtra.emptyDirSync(__dirname + '/../temp');
-                        if (err)
-                            throw err;
-                    });
-                    M.toast({ html: 'Mods instalados' });
+                if (clear)
+                    fsExtra.emptyDirSync(`/Users/${user}/AppData/Roaming/.minecraft/mods`);
+                fsExtra.copy(__dirname + '/../temp/Tierra-del-Perreo-24-7-brrr-main/mods', `/Users/${user}/AppData/Roaming/.minecraft/mods`, (err) => {
+                    fsExtra.emptyDirSync(__dirname + '/../temp');
+                    if (err)
+                        throw err;
                 });
+                M.toast({ html: 'Mods instalados' });
             }).catch((err) => {
                 M.toast({ html: 'No fue lo que dios quiere' });
                 M.toast({ html: "no se pudo instalar los mods re-intentar o instalar forzado" });

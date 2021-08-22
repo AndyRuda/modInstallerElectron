@@ -1,28 +1,64 @@
 {
-  "name": "ModsInstaller",
+  "name": "mods-installer",
   "version": "1.0.0",
-  "description": "",
+  "description": "La app para el server de eshuu!",
   "main": "app/index.js",
   "scripts": {
-    "start": "yarn run build && electron app/index.js",
+    "start": "electron-forge start",
     "build": "copyfiles -u 1 src/**/*.html src/**/*.css app/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "keywords": [],
-  "author": "",
+  "author": "Andy Ruda",
   "license": "ISC",
   "dependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.59",
     "@types/download": "^8.0.1",
     "@types/materialize-css": "^1.0.11",
     "axios": "^0.21.1",
     "download": "^8.0.0",
-    "electron": "^13.2.1",
     "electron-reload": "^2.0.0-alpha.1",
+    "electron-squirrel-startup": "^1.0.0",
     "fs-extra": "^10.0.0"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.59",
+    "@electron-forge/maker-deb": "^6.0.0-beta.59",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.59",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.59",
+    "@electron-forge/maker-zip": "^6.0.0-beta.59",
     "copyfiles": "^2.4.1",
+    "electron": "^13.2.1",
     "rimraf": "^3.0.2"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "setupIcon":"./public/icon.ico",
+            "iconUrl":"https://www.pikpng.com/pngl/m/501-5014055_rikka-takanashi-rikka-takanashi-png-clipart.png",
+            "name": "mods_installer"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }
